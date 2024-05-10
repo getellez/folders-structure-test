@@ -2,7 +2,8 @@ import { Folder } from '../../interfaces';
 import { createFolder, listFolders } from '../../libs';
 
 const inputData = `
-CREATE papers
+CREATE movies
+CREATE movies/action
 CREATE foods
 CREATE foods/fruits
 CREATE foods/fruits/apples
