@@ -1,29 +1,39 @@
-import { Folder } from '../interfaces';
+// Define los tipos necesarios
+interface Folder {
+  name: string;
+}
 
-export const createFolder = (folders: Folder[], folderPath: string) => {
-  const pathSegments = folderPath.split('/');
-  let currentFolder = folders;
+type FolderStructure = { [key: string]: Folder };
 
-  for (const segment of pathSegments) {
-    const existingFolder = currentFolder.find((f) => f.name === segment);
+// Función para procesar las instrucciones
+const processInstructions = (
+  instructions: string[],
+  folders: FolderStructure
+): FolderStructure => {
+  return instructions.reduce((acc, instruction) => {
+    const [action, path] = instruction.split(' ');
+    const parts = path.split('/');
+    let currentPath = '';
 
-    if (!existingFolder) {
-      const newFolder: Folder = {
-        name: segment
-      };
-      currentFolder.push(newFolder);
-      currentFolder = newFolder.subfolders = [];
-    } else {
-      currentFolder = existingFolder.subfolders || [];
-    }
-  }
+    parts.forEach((part, index) => {
+      currentPath += `/${part}`;
+      if (action === 'CREATE' && !acc[currentPath]) {
+        acc[currentPath] = { name: part };
+      } else if (action === 'MOVE' && acc[currentPath]) {
+        const newPath = parts.slice(index + 1).join('/');
+        acc[newPath] = acc[currentPath];
+        delete acc[currentPath];
+      } else if (action === 'DELETE' && acc[currentPath]) {
+        delete acc[currentPath];
+      }
+    });
+
+    return acc;
+  }, folders);
 };
 
-export const listFolders = (folders: Folder[], indentation: string = '') => {
-  for (const folder of folders) {
-    console.log(`${indentation}${folder.name}`);
-    if (folder.subfolders) {
-      listFolders(folder.subfolders, `${indentation}  `);
-    }
-  }
+// Función principal
+export const main = (instructions: string[]): FolderStructure => {
+  const initialFolders: FolderStructure = {};
+  return processInstructions(instructions, initialFolders);
 };
