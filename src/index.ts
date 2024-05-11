@@ -9,7 +9,10 @@ import { main } from './modules/tree';
   CREATE movies/drama
   CREATE foods/fruits/oranges
   CREATE foods/fruits/apples
-  CREATE foods/fruits/bananas
+  CREATE foods/fruits/bananas/yellow
+  LIST
+  DELETE foods/fruits/apples
+  MOVE foods/fruits/oranges movies/drama/oranges
   LIST
   `;
 

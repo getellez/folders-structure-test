@@ -13,13 +13,17 @@ function createFolder(folders: FolderStructure, path: string): void {
   }
 
   const parts = path.split('/');
-  folders[path] = { name: parts[parts.length - 1] };
+  let currentPath: string = '';
+  for (const segment of parts) {
+    currentPath += segment + '/';
+    if (!folders[currentPath.slice(0, -1)]) {
+      folders[currentPath.slice(0, -1)] = { name: segment };
+    }
+  }
 }
 
 function listFolders(folders: FolderStructure) {
-  console.log('folders :>> ', folders);
   const groupedFolders = groupFolders(folders);
-  console.log('groupedFolders :>> ', JSON.stringify(groupedFolders, null, 2));
   console.log('\n');
   printFolders(groupedFolders);
 }
