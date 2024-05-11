@@ -2,8 +2,8 @@ import { FolderStructure } from "../../interfaces";
 import { groupFolders, printFolders } from "../../libs";
 
 export class FolderTree {
+  folders: FolderStructure = {};
   private commands: string[];
-  private folders: FolderStructure = {};
   constructor() {
     this.commands = [];
     this.folders = {};
@@ -70,7 +70,7 @@ export class FolderTree {
   private moveFolders(
     folders: FolderStructure,
     fromPath: string,
-    toPath: string,
+    toPath: string
   ) {
     if (folders[toPath]) {
       console.error(`Error: The folder "${toPath}" already exists.`);
