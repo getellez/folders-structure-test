@@ -1,13 +1,13 @@
-import { Folder, FolderStructure } from '../interfaces';
+import { Folder, FolderStructure } from "../interfaces";
 
 export function groupFolders(folders: FolderStructure): Folder[] {
   const rootFolders: Folder[] = [];
   const folderMap: { [key: string]: Folder } = {};
 
   for (const path in folders) {
-    const pathParts = path.split('/');
+    const pathParts = path.split("/");
     pathParts.pop();
-    const parentPath = pathParts.join('/');
+    const parentPath = pathParts.join("/");
     const folder: Folder = { ...folders[path] };
     folderMap[path] = folder;
     if (parentPath && folderMap[parentPath]) {
@@ -26,7 +26,7 @@ export function groupFolders(folders: FolderStructure): Folder[] {
 }
 export const printFolders = (folders: Folder[], indent = 0) => {
   folders.forEach((folder) => {
-    console.log(' '.repeat(indent * 2) + folder.name);
+    console.log(" ".repeat(indent * 2) + folder.name);
     if (folder.subfolders) {
       printFolders(folder.subfolders, indent + 1);
     }

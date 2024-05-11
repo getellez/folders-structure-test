@@ -1,5 +1,5 @@
-import { FolderStructure } from '../../interfaces';
-import { groupFolders, printFolders } from '../../libs';
+import { FolderStructure } from "../../interfaces";
+import { groupFolders, printFolders } from "../../libs";
 
 export class FolderTree {
   private commands: string[];
@@ -9,20 +9,20 @@ export class FolderTree {
     this.folders = {};
   }
   runCommands(data: string) {
-    this.commands = data.trim().split('\n');
+    this.commands = data.trim().split("\n");
     for (const operation of this.commands) {
-      const [command, ...args] = operation.trim().split(' ');
+      const [command, ...args] = operation.trim().split(" ");
       switch (command) {
-        case 'LIST':
+        case "LIST":
           this.listFolders(this.folders);
           break;
-        case 'CREATE':
+        case "CREATE":
           this.createFolder(this.folders, args[0]);
           break;
-        case 'DELETE':
+        case "DELETE":
           this.deleteFolder(this.folders, args[0]);
           break;
-        case 'MOVE':
+        case "MOVE":
           this.moveFolders(this.folders, args[0], args[1]);
           break;
         default:
@@ -37,15 +37,15 @@ export class FolderTree {
       return process.exit(1);
     }
 
-    if (!path.includes('/')) {
+    if (!path.includes("/")) {
       folders[path] = { name: path };
       return;
     }
 
-    const parts = path.split('/');
-    let currentPath: string = '';
+    const parts = path.split("/");
+    let currentPath: string = "";
     for (const segment of parts) {
-      currentPath += segment + '/';
+      currentPath += segment + "/";
       if (!folders[currentPath.slice(0, -1)]) {
         folders[currentPath.slice(0, -1)] = { name: segment };
       }
@@ -54,7 +54,7 @@ export class FolderTree {
 
   private listFolders(folders: FolderStructure) {
     const groupedFolders = groupFolders(folders);
-    console.log('\n');
+    console.log("\n");
     printFolders(groupedFolders);
   }
 
@@ -70,7 +70,7 @@ export class FolderTree {
   private moveFolders(
     folders: FolderStructure,
     fromPath: string,
-    toPath: string
+    toPath: string,
   ) {
     if (folders[toPath]) {
       console.error(`Error: La carpeta "${toPath}" ya existe.`);
