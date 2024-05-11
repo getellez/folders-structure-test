@@ -26,14 +26,14 @@ export class FolderTree {
           this.moveFolders(this.folders, args[0], args[1]);
           break;
         default:
-          console.error(`Comando no reconocido: ${command}`);
+          console.error(`Command not found: ${command}`);
           return process.exit(1);
       }
     }
   }
   private createFolder(folders: FolderStructure, path: string): void {
     if (folders[path]) {
-      console.error(`\nError: La carpeta "${path}" ya existe.\n`);
+      console.error(`\nError: The folder "${path}" already exists.\n`);
       return process.exit(1);
     }
 
@@ -62,7 +62,7 @@ export class FolderTree {
     if (folders[targetPath]) {
       delete folders[targetPath];
     } else {
-      console.error(`Error: La carpeta "${targetPath}" no existe.`);
+      console.error(`Error: The folder "${targetPath}" does not exist.`);
       return process.exit(1);
     }
   }
@@ -73,7 +73,7 @@ export class FolderTree {
     toPath: string,
   ) {
     if (folders[toPath]) {
-      console.error(`Error: La carpeta "${toPath}" ya existe.`);
+      console.error(`Error: The folder "${toPath}" already exists.`);
       return process.exit(1);
     }
     folders[toPath] = folders[fromPath];
