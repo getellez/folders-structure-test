@@ -20,15 +20,15 @@ describe("utils", () => {
       ];
       expect(groupedFolders).toEqual(output);
     });
-  })
+  });
   describe("validateOperations", () => {
     it("should fail if the operation doesn't exist", () => {
       const exitSpy = jest.spyOn(process, "exit").mockImplementation();
-      const op: string[] = []
+      const op: string[] = [];
       validateOperation(op);
       expect(exitSpy).toHaveBeenCalled();
       exitSpy.mockRestore();
-    })
+    });
     it("should fail if the command is not valid", () => {
       const exitSpy = jest.spyOn(process, "exit").mockImplementation();
       const operation = `
@@ -37,7 +37,7 @@ describe("utils", () => {
       validateOperation(operation.trim().split(" "));
       expect(exitSpy).toHaveBeenCalled();
       exitSpy.mockRestore();
-    })
+    });
     it("should fail if CREATE receives invalid commands", () => {
       const exitSpy = jest.spyOn(process, "exit").mockImplementation();
       const operation = `
@@ -46,7 +46,7 @@ describe("utils", () => {
       validateOperation(operation.trim().split(" "));
       expect(exitSpy).toHaveBeenCalled();
       exitSpy.mockRestore();
-    })
+    });
     it("should fail if MOVE receives invalid commands", () => {
       const exitSpy = jest.spyOn(process, "exit").mockImplementation();
       const operation = `
@@ -55,7 +55,7 @@ describe("utils", () => {
       validateOperation(operation.trim().split(" "));
       expect(exitSpy).toHaveBeenCalled();
       exitSpy.mockRestore();
-    })
+    });
     it("should fail if DELETE receives invalid commands", () => {
       const exitSpy = jest.spyOn(process, "exit").mockImplementation();
       const operation = `
@@ -64,7 +64,7 @@ describe("utils", () => {
       validateOperation(operation.trim().split(" "));
       expect(exitSpy).toHaveBeenCalled();
       exitSpy.mockRestore();
-    })
+    });
     it("should fail if LIST receives invalid commands", () => {
       const exitSpy = jest.spyOn(process, "exit").mockImplementation();
       const operation = `
@@ -73,13 +73,13 @@ describe("utils", () => {
       validateOperation(operation.trim().split(" "));
       expect(exitSpy).toHaveBeenCalled();
       exitSpy.mockRestore();
-    })
-    it('should return the same command if it is valid', () => {
+    });
+    it("should return the same command if it is valid", () => {
       const operation = `
         CREATE movies/heroes
       `;
       const [command] = validateOperation(operation.trim().split(" "));
       expect(command).toEqual("CREATE");
-    })
-  })
+    });
+  });
 });
