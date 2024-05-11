@@ -23,7 +23,7 @@ export const groupFolders = (folders: FolderStructure): Folder[] => {
   }
 
   return rootFolders;
-}
+};
 export const printFolders = (folders: Folder[], indent = 0) => {
   folders.forEach((folder) => {
     console.log(" ".repeat(indent * 2) + folder.name);
