@@ -1,6 +1,6 @@
 import { Folder, FolderStructure } from "../interfaces";
 
-export function groupFolders(folders: FolderStructure): Folder[] {
+export const groupFolders = (folders: FolderStructure): Folder[] => {
   const rootFolders: Folder[] = [];
   const folderMap: { [key: string]: Folder } = {};
 

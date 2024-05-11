@@ -1,4 +1,4 @@
-import { FolderTree } from "../modules/tree";
+import { FolderTree } from "../../modules/tree";
 
 describe("FolderTree", () => {
   let folderTree: FolderTree;

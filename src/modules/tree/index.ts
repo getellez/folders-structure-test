@@ -1,5 +1,5 @@
 import { FolderStructure } from "../../interfaces";
-import { groupFolders, printFolders } from "../../libs";
+import { groupFolders, printFolders } from "../../libs/utils";
 
 export class FolderTree {
   folders: FolderStructure = {};
