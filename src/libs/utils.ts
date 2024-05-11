@@ -32,3 +32,33 @@ export const printFolders = (folders: Folder[], indent = 0) => {
     }
   });
 };
+
+export const validateOperation = (operation: string[]) => {
+  const validCommands = ["LIST", "CREATE", "DELETE", "MOVE"];
+  const [command, ...args] = operation;
+  if (!validCommands.includes(command)) {
+    console.error(`Command not found: ${command}`);
+    return process.exit(1);
+  }
+  if (command === "CREATE" && args.length !== 1) {
+    // OK
+    console.error(`Invalid number of arguments: ${args.length}`);
+    return process.exit(1);
+  }
+  if (command === "DELETE" && args.length !== 1) {
+    // OK
+    console.error(`Invalid number of arguments: ${args.length}`);
+    return process.exit(1);
+  }
+  if (command === "MOVE" && args.length !== 2) {
+    // OK
+    console.error(`Invalid number of arguments: ${args.length}`);
+    return process.exit(1);
+  }
+  if (command === "LIST" && args.length !== 0) {
+    // OK
+    console.error(`Invalid number of arguments: ${args.length}`);
+    return process.exit(1);
+  }
+  return [command, ...args];
+};

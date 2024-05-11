@@ -1,5 +1,9 @@
 import { FolderStructure } from "../../interfaces";
-import { groupFolders, printFolders } from "../../libs/utils";
+import {
+  groupFolders,
+  printFolders,
+  validateOperation,
+} from "../../libs/utils";
 
 export class FolderTree {
   folders: FolderStructure = {};
@@ -11,19 +15,22 @@ export class FolderTree {
   runCommands(data: string) {
     this.commands = data.trim().split("\n");
     for (const operation of this.commands) {
-      const [command, ...args] = operation.trim().split(" ");
+      const op = operation.trim().split(" ");
+      const [command, ...args] = validateOperation(op);
+      const folderPath = args[0]?.toLowerCase();
+      const toPath = args[1]?.toLowerCase();
       switch (command) {
         case "LIST":
           this.listFolders(this.folders);
           break;
         case "CREATE":
-          this.createFolder(this.folders, args[0]);
+          this.createFolder(this.folders, folderPath);
           break;
         case "DELETE":
-          this.deleteFolder(this.folders, args[0]);
+          this.deleteFolder(this.folders, folderPath);
           break;
         case "MOVE":
-          this.moveFolders(this.folders, args[0], args[1]);
+          this.moveFolders(this.folders, folderPath, toPath);
           break;
         default:
           console.error(`Command not found: ${command}`);
