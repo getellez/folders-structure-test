@@ -1,8 +1,6 @@
-import { main } from './modules/tree';
-// Define el tipo para la estructura de las carpetas
+import { FolderTree } from './modules/tree';
 
-(() => {
-  const data = `
+const data = `
   CREATE movies
   CREATE foods
   CREATE foods/fruits
@@ -16,6 +14,5 @@ import { main } from './modules/tree';
   LIST
   `;
 
-  const commands = data.trim().split('\n');
-  main(commands);
-})();
+const folderTree = new FolderTree();
+folderTree.runCommands(data);
