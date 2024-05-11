@@ -3,14 +3,13 @@ import { main } from './modules/tree';
 
 (() => {
   const data = `
-  CREATE foods
   CREATE movies
-  CREATE movies/horror
-  CREATE movies/drama
+  CREATE foods
   CREATE foods/fruits
+  CREATE movies/drama
   CREATE foods/fruits/oranges
+  CREATE foods/fruits/apples
   CREATE foods/fruits/bananas
-  CREATE foods/fruits/guayabas
   LIST
   `;
 

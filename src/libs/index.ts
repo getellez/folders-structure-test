@@ -1,39 +1,39 @@
-// Define los tipos necesarios
-interface Folder {
-  name: string;
-}
+import { Folder, FolderStructure } from '../interfaces';
 
-type FolderStructure = { [key: string]: Folder };
+export function groupFolders(folders: FolderStructure): Folder[] {
+  const rootFolders: Folder[] = [];
+  const folderMap: { [key: string]: Folder } = {};
 
-// Función para procesar las instrucciones
-const processInstructions = (
-  instructions: string[],
-  folders: FolderStructure
-): FolderStructure => {
-  return instructions.reduce((acc, instruction) => {
-    const [action, path] = instruction.split(' ');
-    const parts = path.split('/');
-    let currentPath = '';
+  for (const path in folders) {
+    const pathParts = path.split('/');
+    const folderName = pathParts.pop() as string;
+    const parentPath = pathParts.join('/');
+    const folder: Folder = { ...folders[path] };
 
-    parts.forEach((part, index) => {
-      currentPath += `/${part}`;
-      if (action === 'CREATE' && !acc[currentPath]) {
-        acc[currentPath] = { name: part };
-      } else if (action === 'MOVE' && acc[currentPath]) {
-        const newPath = parts.slice(index + 1).join('/');
-        acc[newPath] = acc[currentPath];
-        delete acc[currentPath];
-      } else if (action === 'DELETE' && acc[currentPath]) {
-        delete acc[currentPath];
+    folderMap[path] = folder;
+
+    if (parentPath && folderMap[parentPath]) {
+      const parentFolder = folderMap[parentPath];
+      if (parentFolder.subfolders) {
+        parentFolder.subfolders.push(folder);
+      } else {
+        parentFolder.subfolders = [folder];
       }
-    });
+    } else {
+      rootFolders.push(folder);
+    }
+  }
 
-    return acc;
-  }, folders);
-};
+  return rootFolders;
+}
+export const printFolders = (folders: Folder[], indent = 0) => {
+  folders.forEach((folder) => {
+    // Imprimir el nombre del folder con la indentación adecuada
+    console.log(' '.repeat(indent * 2) + folder.name);
 
-// Función principal
-export const main = (instructions: string[]): FolderStructure => {
-  const initialFolders: FolderStructure = {};
-  return processInstructions(instructions, initialFolders);
+    // Si el folder tiene subfolders, llamar recursivamente a la función con indent + 1
+    if (folder.subfolders) {
+      printFolders(folder.subfolders, indent + 1);
+    }
+  });
 };
