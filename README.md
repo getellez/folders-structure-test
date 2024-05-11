@@ -88,4 +88,18 @@ In addition, you can see the coverage report running the command below:
   npm run test:coverage
 ```
 
+The coverage table should similar to this in your console:
+
+```
+|--------------|---------|----------|---------|---------|
+|File          | % Stmts | % Branch | % Funcs | % Lines |
+|--------------|---------|----------|---------|---------|
+|All files     |   98.88 |    97.61 |     100 |   98.85 |
+| libs         |   97.82 |    95.83 |     100 |   97.67 |
+|  utils.ts    |   97.82 |    95.83 |     100 |   97.67 |
+| modules/tree |     100 |      100 |     100 |     100 |
+|  index.ts    |     100 |      100 |     100 |     100 |
+--------------|---------|----------|---------|---------|
+```
+
 You can open the `index.html` file placed in the `coverage/lcov-report` folder, in case you want to see the report in a more user-friendly interface.
