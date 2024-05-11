@@ -34,6 +34,10 @@ export const printFolders = (folders: Folder[], indent = 0) => {
 };
 
 export const validateOperation = (operation: string[]) => {
+  if (!operation || operation.length === 0) {
+    console.error(`Invalid number of arguments: ${operation.length}`);
+    return process.exit(1);
+  }
   const validCommands = ["LIST", "CREATE", "DELETE", "MOVE"];
   const [command, ...args] = operation;
   if (!validCommands.includes(command)) {

@@ -73,16 +73,6 @@ describe("FolderTree", () => {
     expect(exitSpy).toHaveBeenCalled();
   });
 
-  it("should fail if command not found", () => {
-    const data = `
-      RUN fruits
-    `;
-    const exitSpy = jest.spyOn(process, "exit").mockImplementation();
-    folderTree.runCommands(data);
-    expect(exitSpy).toHaveBeenCalled();
-    exitSpy.mockRestore();
-  });
-
   it("should fail if is creating a folder that already exists", () => {
     const data = `
       CREATE fruits

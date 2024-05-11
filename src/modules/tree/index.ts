@@ -32,9 +32,6 @@ export class FolderTree {
         case "MOVE":
           this.moveFolders(this.folders, folderPath, toPath);
           break;
-        default:
-          console.error(`Command not found: ${command}`);
-          return process.exit(1);
       }
     }
   }
