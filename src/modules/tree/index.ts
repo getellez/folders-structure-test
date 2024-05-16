@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { FolderStructure } from "../../interfaces";
+import { FolderStructure, ValidCommands } from "../../interfaces";
 import {
   groupFolders,
   printFolders,
@@ -39,19 +39,19 @@ export class FolderTree {
     for (const operation of this.commands) {
       const op = operation.trim().split(" ");
       const [command, ...args] = validateOperation(op);
-      const folderPath = args[0]?.toLowerCase();
-      const toPath = args[1]?.toLowerCase();
+      const folderPath = args[0];
+      const toPath = command === ValidCommands.MOVE ? String(args[1]) : "";
       switch (command) {
-        case "LIST":
+        case ValidCommands.LIST:
           this.listFolders(this.folders);
           break;
-        case "CREATE":
+        case ValidCommands.CREATE:
           this.createFolder(this.folders, folderPath);
           break;
-        case "DELETE":
+        case ValidCommands.DELETE:
           this.deleteFolder(this.folders, folderPath);
           break;
-        case "MOVE":
+        case ValidCommands.MOVE:
           this.moveFolders(this.folders, folderPath, toPath);
           break;
       }
