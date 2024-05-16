@@ -103,6 +103,6 @@ export class FolderTree {
       return process.exit(1);
     }
     folders[toPath] = folders[fromPath];
-    delete folders[fromPath];
+    this.deleteFolder(folders, fromPath);
   }
 }
