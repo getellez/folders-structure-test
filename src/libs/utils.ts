@@ -43,15 +43,9 @@ export const validateOperation = (operation: string[]) => {
     console.error(`Invalid number of arguments: ${operation.length}`);
     return process.exit(1);
   }
-  const validCommands = [
-    ValidCommands.LIST,
-    ValidCommands.CREATE,
-    ValidCommands.DELETE,
-    ValidCommands.MOVE,
-  ];
-
+  const validCommands = Object.values(ValidCommands);
   const [command, ...args] = operation;
-  if (!Object.values(validCommands).includes(command as ValidCommands)) {
+  if (!validCommands.includes(command as ValidCommands)) {
     console.error(`Command not found: ${command}`);
     return process.exit(1);
   }
