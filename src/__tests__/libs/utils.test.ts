@@ -1,5 +1,4 @@
 import { groupFolders, validateOperation } from "../../libs/utils";
-import { FolderTree } from "../../modules/tree";
 
 describe("utils", () => {
   describe("groupFolders", () => {
