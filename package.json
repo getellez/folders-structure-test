@@ -12,18 +12,21 @@
     "prepare": "husky install"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
     "transform": {
       "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
     },
+    "coveragePathIgnorePatterns": [
+      "dist"
+    ],
     "transformIgnorePatterns": [
-      "node_modules/(?!variables/.*)"
+      "(node_modules)/(?!variables/.*)"
     ]
   },
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.2.0",
     "@types/jest": "^29.5.12",
