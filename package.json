@@ -22,7 +22,8 @@
       "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
     },
     "coveragePathIgnorePatterns": [
-      "dist"
+      "dist",
+      "interfaces"
     ],
     "transformIgnorePatterns": [
       "(node_modules)/(?!variables/.*)"
