@@ -1,19 +1,41 @@
+import { readFileSync } from "fs";
 import { FolderStructure } from "../../interfaces";
 import {
   groupFolders,
   printFolders,
   validateOperation,
 } from "../../libs/utils";
+import path from "path";
 
 export class FolderTree {
+  commands: string[];
+  content: string;
   folders: FolderStructure = {};
-  private commands: string[];
   constructor() {
     this.commands = [];
     this.folders = {};
+    this.content = "";
   }
-  runCommands(data: string) {
-    this.commands = data.trim().split("\n");
+  readFile(fileName: string) {
+    this.content = readFileSync(
+      path.resolve(__dirname, "../../../", fileName),
+      {
+        encoding: "utf-8",
+        flag: "r",
+      }
+    );
+  }
+  runCommands(data?: string) {
+    if (!data && !this.content) {
+      console.error(
+        "You must use the readFile method or pass the commands as a parameter."
+      );
+      return process.exit(1);
+    }
+
+    const source = data ? data : this.content;
+    this.commands = source.trim().split("\n");
+
     for (const operation of this.commands) {
       const op = operation.trim().split(" ");
       const [command, ...args] = validateOperation(op);
