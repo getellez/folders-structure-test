@@ -1,3 +1,4 @@
+import fs from "fs";
 import { FolderTree } from "../../modules/tree";
 
 describe("FolderTree", () => {
@@ -82,5 +83,22 @@ describe("FolderTree", () => {
     folderTree.runCommands(data);
     expect(exitSpy).toHaveBeenCalled();
     exitSpy.mockRestore();
+  });
+
+  it("should fail if commands are not provided", () => {
+    const exitSpy = jest.spyOn(process, "exit").mockImplementation();
+    folderTree.runCommands();
+    expect(exitSpy).toHaveBeenCalled();
+  });
+
+  it("should read the data file", () => {
+    const contentMocked = `CREATE movies\nCREATE foods`;
+    const readSpy = jest.spyOn(fs, "readFileSync").mockImplementation(() => {
+      return contentMocked;
+    });
+    folderTree.readFile("data.txt");
+    folderTree.runCommands();
+    expect(readSpy).toHaveBeenCalled();
+    expect(folderTree.content).toBeDefined();
   });
 });
