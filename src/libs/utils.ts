@@ -1,13 +1,18 @@
-import { Folder, FolderStructure, ValidCommands } from "../interfaces";
+import {
+  Folder,
+  FolderStructure,
+  Separator,
+  ValidCommands,
+} from "../interfaces";
 
 export const groupFolders = (folders: FolderStructure): Folder[] => {
   const rootFolders: Folder[] = [];
   const folderMap: FolderStructure = {};
 
   for (const path in folders) {
-    const pathParts = path.split("/");
+    const pathParts = path.split(Separator.SLASH);
     pathParts.pop();
-    const parentPath = pathParts.join("/");
+    const parentPath = pathParts.join(Separator.SLASH);
     const folder: Folder = { ...folders[path] };
     folderMap[path] = folder;
     if (parentPath && folderMap[parentPath]) {

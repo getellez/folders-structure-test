@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { FolderStructure, ValidCommands } from "../../interfaces";
+import { FolderStructure, Separator, ValidCommands } from "../../interfaces";
 import {
   groupFolders,
   printFolders,
@@ -63,15 +63,15 @@ export class FolderTree {
       return process.exit(1);
     }
 
-    if (!path.includes("/")) {
+    if (!path.includes(Separator.SLASH)) {
       folders[path] = { name: path };
       return;
     }
 
-    const parts = path.split("/");
+    const parts = path.split(Separator.SLASH);
     let currentPath: string = "";
     for (const segment of parts) {
-      currentPath += segment + "/";
+      currentPath += segment + Separator.SLASH;
       if (!folders[currentPath.slice(0, -1)]) {
         folders[currentPath.slice(0, -1)] = { name: segment };
       }
