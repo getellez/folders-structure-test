@@ -2,7 +2,7 @@ import { Folder, FolderStructure } from "../interfaces";
 
 export const groupFolders = (folders: FolderStructure): Folder[] => {
   const rootFolders: Folder[] = [];
-  const folderMap: { [key: string]: Folder } = {};
+  const folderMap: FolderStructure = {};
 
   for (const path in folders) {
     const pathParts = path.split("/");
@@ -11,7 +11,7 @@ export const groupFolders = (folders: FolderStructure): Folder[] => {
     const folder: Folder = { ...folders[path] };
     folderMap[path] = folder;
     if (parentPath && folderMap[parentPath]) {
-      const parentFolder = folderMap[parentPath];
+      const parentFolder: Folder = folderMap[parentPath];
       if (parentFolder.subfolders) {
         parentFolder.subfolders.push(folder);
       } else {
